@@ -1,3 +1,5 @@
+require_relative 'cat.rb'
+
 module UserProfile 
   class User
     attr_reader :email, :encrypted_password
@@ -6,28 +8,25 @@ module UserProfile
       @email, @encrypted_password = email, Encryption.encrypt(password)
     end
 
-    def self.create
-      puts "Please enter an e-mail address:"
-      email = gets.chomp
+    def self.create(email, password)
       if User.find_by(email).instance_of?(User) == true
-        puts "Email already exists! Please use a different email"
+        print "Email already exists! Please use a different email"
         create
       else
-        puts "Enter a password"
-        password = gets.chomp 
+        password = Encryption.encrypt(password)
         User.new(email, password)
       end
     end
 
     def save
-      File.open('./data/users', 'a') do |file|
+      File.open('./data/accounts', 'a') do |file|
         file.write("#{@email}, #{@encrypted_password}\n")
       end
     end
 
     def self.login(email, password)
       user = User.find_by(email)
-      if user.nil?
+      if user.nil? == true
         puts "There is no user try again."
       elsif user.encrypted_password == Encryption.encrypt(password)
         user
@@ -37,7 +36,7 @@ module UserProfile
     end
 
     def self.find_by(email)
-      File.open('./data/user', 'r') do |file|
+      File.open('./data/accounts', 'r') do |file|
         file.map do |line|
           user_email, encrypted_password = line.split(', ')
           if user_email == email
@@ -75,8 +74,8 @@ module UserProfile
     def select_cat(email)
       @cats = Cat.load
   
-      if File.file?("./data/#{email}_cat")
-        f = File.open("./data/#{email}_cat", 'r') 
+      if File.file?("./data/cats/#{email}_cat")
+        f = File.open("./data/cats/#{email}_cat", 'r') 
         name, size, energy, confidence, agility, strength = f.readlines[0].split(", ")
         @cat = Cat.new(name, size.to_s, energy.to_i, confidence.to_i, agility.to_i, strength.to_i)
       else
@@ -91,9 +90,9 @@ module UserProfile
       end
     end
   
-    def self.save(player)
-      File.open("../data/accounts/#{player.user.email}", 'w+') do |file|
-        file.write("#{player.user.email}, #{player.pawz}, #{player.tokens}, #{player.wins}, #{player.losses}, #{player.competition_wins}\n")
+    def save
+      File.open("./data/profiles/#{@user.email}", 'w') do |file|
+        file.write("#{@user.email}, #{@pawz}, #{@tokens}, #{@wins}, #{@losses}, #{@competition_wins}\n")
       end
       # File.open("./data/#{player.user.email}_cat", 'w') do |file|
       #   file.write("#{player.cat.name}, #{player.cat.size}, #{player.cat.energy}, #{player.cat.confidence}, #{player.cat.agility}, #{player.cat.strength}\n")
@@ -101,7 +100,7 @@ module UserProfile
     end
   
     def self.login(user, email)
-      f = File.open("../data/accounts/#{email}", "r")
+      f = File.open("./data/profiles/#{email}", "r")
       email, pawz, tokens, wins, losses, competition_wins = f.readlines[0].split(",")
       player = Player.new(user, pawz.to_i, tokens.to_i, wins.to_i, losses.to_i, competition_wins.to_i)
     end
@@ -131,7 +130,7 @@ module UserProfile
     end
   
     def to_s
-      "user.email: #{@user.email}, paw points: #{@pawz}, tokens: #{@tokens}, wins: #{@wins}, losses: #{@losses}, competition wins: #{@competition_wins}"
+      "user.email: #{@user.email}, paw points: #{@pawz}, tokens: #{@tokens}, wins: #{@wins}, losses: #{@losses}, competition wins: #{@competition_wins}, cat: #{@cat}"
     end
   end
 end

@@ -1,2 +1,40 @@
-<p>You are signed in, <%= session[:email] %>!
-<p>
+<% require './helpers/helpers.rb' %>
+
+<style>
+* {
+  background-color: #eaeae1;
+  margin-left: auto;
+  margin-right: auto;
+}
+div {
+  padding-top: 50px;
+  color: #558000;
+  text-align: center;
+  width: 50%;
+}
+</style>
+<div>
+  <h1> Welcome to Competition Cats: Web Edition</h1>
+  <p> a very textual feline game written in ruby<br>
+  <p> and some html<br>
+  <p> and alive thanks to sinatra<br>
+  <p> have fun <%=session[:email]%><br>
+</div>
+<% if Helpers::Profile.has_cat?(session[:profile_1]) == nil  %>
+<%= "This player has no cat" %>
+<%end%>
+<div>
+--"ﾐㅇ ༝ ㅇﾐ----------------------------------------------------------------------------<br>
+                              -"ﾐㅇ ༝ ㅇﾐ-<br>
+                              pawzmart! $$$<br>
+                                                     -"ﾐㅇ ༝ ㅇﾐ-<br>
+                     practice: paw fight             watch ad and earn free tokens<br>
+                     <a href="/cat">Select a Cat</a>        <br>
+                     <a href="/games/quiz">mini-game: CAT101 exam</a>         -1 token <br>
+                     mini-game: count mice           -1 token <br>
+                     play competition mode!          -3 tokens<br>
+         #{"ﾐㅇ ༝ ㅇﾐ"<br>
+                     logout      
+
+--------------------------"ﾐㅇ ༝ ㅇﾐ----------------------------------------------------<br>
+</div>

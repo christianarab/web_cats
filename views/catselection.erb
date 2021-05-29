@@ -1,0 +1,14 @@
+<% require './models/cat.rb' %>
+
+<%# I need to select a cat from the list of cats%>
+<%# I need to presist the data according to file%>
+<%# I need it to link to the profile%>
+<%loadedcats = Cat.load%>
+<form method='POST' action='/catselected'>
+  <%loadedcats.each_with_index do |cat, idx|%>
+  <p><input type="radio" name="input" value='<%= idx %>'><%= idx+1 %> ^_^<%= cat.to_s %>
+  <%end%>
+  <input type='submit'>
+  </form>
+</div>
+
