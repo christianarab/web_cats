@@ -10,7 +10,7 @@ class Game
       puts "The cat to get the most points wins!"
 
       puts "Player 1 up first! (psssss player 2 don't look please!)"
-      p1_score = quiz(player_1)
+      p1_score = quiz
       puts "#{player_1.user.email} scored #{p1_score} out of 10"
       puts "Next up, Player 2!!!"
       if player_2.user.email == "Computer"
@@ -18,7 +18,7 @@ class Game
         p2_score = rand(0..8)
         puts "The computer scored #{p2_score} out of 10!"
       else
-        p2_score = quiz(player_2)
+        p2_score = quiz
         puts "#{player_2.user.email} scored #{p2_score}"
       end
       if p1_score > p2_score

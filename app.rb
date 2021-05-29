@@ -52,7 +52,7 @@ class App < Sinatra::Base
     session[:player_1] = UserProfile::User.create(session[:email], session[:password])
     player_1_profile = UserProfile::Player.new(session[:player_1])
     player_1_profile.save
-    # session[:player_2] = UserProfile::Player.computer
+    session[:player_2] = UserProfile::Player.computer
     redirect '/'
     end
 

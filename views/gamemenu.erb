@@ -14,15 +14,29 @@ div {
 }
 </style>
 <div>
-  <h1> Welcome to Competition Cats: Web Edition</h1>
-  <p> a very textual feline game written in ruby<br>
-  <p> and some html<br>
-  <p> and alive thanks to sinatra<br>
-  <p> have fun <%=session[:email]%><br>
+  <h1>Competition Cats: Web Edition</h1>
+  <p> a very textual feline game written in ruby and html, alive thanks to sinatra!
+  <p> Have fun <%=session[:email]%><br>
 </div>
+<div>
+<% if Helpers::Profile.player_two?(session[:profile_2]) == nil  %>
+  <%= "There is no second player. Computer selected!" %>
+  <% session[:profile_2] = UserProfile::Player.computer %>
+  <%= "Second player is:" %><br>
+  <%= session[:profile_2].to_s %>
+  <% else %>
+  <%= "Second player is:" %><br>
+  <%= session[:profile_2] %>
+<%end%>
+</div>
+<div>
 <% if Helpers::Profile.has_cat?(session[:profile_1]) == nil  %>
 <%= "This player has no cat" %>
+<% else %>
+<%= "Your cat is:" %><br>
+<%= session[:profile_1].cat.to_s %>
 <%end%>
+</div>
 <div>
 --"ﾐㅇ ༝ ㅇﾐ----------------------------------------------------------------------------<br>
                               -"ﾐㅇ ༝ ㅇﾐ-<br>
