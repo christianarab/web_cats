@@ -139,10 +139,10 @@ class App < Sinatra::Base
   post '/signup-filled' do
     session[:email] = params[:email]
     session[:password] = Encryption.encrypt(params[:password])
-    session[:player_1] = UserProfile::User.create(session[:email], session[:password])
+    session[:profile_1] = UserProfile::User.create(session[:email], session[:password])
     player_1_profile = UserProfile::Player.new(session[:player_1])
     player_1_profile.save
-    session[:player_2] = UserProfile::Player.computer
+    session[:profile_2] = UserProfile::Player.computer
     redirect '/'
     end
 
