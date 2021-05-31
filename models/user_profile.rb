@@ -92,8 +92,8 @@ module UserProfile
     end
   
     def save
-      File.open("./data/profiles/#{@user.email}", 'w') do |file|
-        file.write("#{@user.email}, #{@pawz}, #{@tokens}, #{@wins}, #{@losses}, #{@competition_wins}\n")
+      File.open("./data/profiles/#{user.email}", 'w') do |file|
+        file.write("#{user.email}, #{@pawz}, #{@tokens}, #{@wins}, #{@losses}, #{@competition_wins}\n")
       end                
     end
 

@@ -140,8 +140,9 @@ class App < Sinatra::Base
     session[:email] = params[:email]
     session[:password] = Encryption.encrypt(params[:password])
     session[:profile_1] = UserProfile::User.create(session[:email], session[:password])
-    player_1_profile = UserProfile::Player.new(session[:player_1])
+    player_1_profile = UserProfile::Player.new(session[:profile_1])
     player_1_profile.save
+    session[:profile_1] = player_1_profile
     session[:profile_2] = UserProfile::Player.computer
     redirect '/'
     end
@@ -154,8 +155,8 @@ class App < Sinatra::Base
     else
       session[:email] = params[:email]
       session[:password] = Encryption.encrypt(params[:password])
-      session[:player_1] = UserProfile::User.login(session[:email], session[:password])
-      session[:profile_1] = UserProfile::Player.login(session[:player_1], session[:email])
+      session[:profile_1] = UserProfile::User.login(session[:email], session[:password])
+      session[:profile_1] = UserProfile::Player.login(session[:profile_1], session[:email])
       session[:profile_2] = UserProfile::Player.computer
       redirect '/'
     end

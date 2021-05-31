@@ -11,7 +11,7 @@
     <a href="/games/quiz">CAT101 exam ﾐㅇ ༝ ㅇﾐ+</a><br>
     <a href="/games/competition">Competition Battle</a><br>
     <h2> Meow, your cat is... </h2>
-    <% if Helpers::Profile.has_cat?(session[:profile_1]) == nil  %>
+    <% if Helpers::Profile.has_cat?(session[:profile_1]) == nil %>
       <%= "This player has no cat" %>
       <%loadedcats = Cat.load%>
       <h1> Select your feline friend! </h1>
