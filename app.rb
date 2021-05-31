@@ -107,9 +107,9 @@ class App < Sinatra::Base
       session[:pawzerr] = "You do not have enough pawz to buy"
       redirect '/pawzmart'
     else
-    session[:profile_1].pawz -= 300
-    session[:profile_1].cat.add_agility
-    redirect '/pawzmart'
+      session[:profile_1].pawz -= 300
+      session[:profile_1].cat.add_agility
+      redirect '/pawzmart'
     end
   end
 

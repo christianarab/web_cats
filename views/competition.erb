@@ -1,17 +1,17 @@
 <% require './models/competition.rb' %>
 <% require './helpers/style.rb' %>
 
-<%=STYLE%>
+<%= STYLE %>
 
 <div class="center">
-  <%if session[:competitionresult]%>
+  <% if session[:competitionresult] %>
     <div>
       <h2> Game results... </h2>
-        <%session[:competitionresult].each do |result|%>
-            <%if result == 'successful'%>
-                <br><%= "Your attack was successful!"%>
+        <% session[:competitionresult].each do |result| %>
+            <% if result == 'successful' %>
+                <br><%= "Your attack was successful!" %>
                 <%session[:profile_2].cat.energy -= 25%>
-              <%elsif 'defence'%>
+              <% elsif 'defence' %>
                 <br><%= "You defended their attack!"%>
               <%elsif 'rejected'%>
                 <br><%= "Their attack was succesful!"%>
