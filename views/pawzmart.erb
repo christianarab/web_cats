@@ -1,0 +1,38 @@
+<% require './helpers/helpers.rb' %>
+<% require './helpers/style.rb' %>
+
+<%=STYLE%>
+
+<div class="center">
+  <h2>  ﾐ$ ༝ $ﾐ PAWMART </h2>                 
+    Your balance is <%=session[:profile_1].pawz%> pawz! <br>   
+    Spend your pawz(pz) here!  <br>   
+    <% if session[:pawzerr] %>
+      <h2>You do not have enough pawz for this item!</h2>
+    <%end%>
+  <table>
+  <thead>
+    <tr>
+      <th>Amount</th>  
+      <th>Item</th>  
+      <th>Desc.</th> 
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>300 pz</td>
+      <td><a href="/pawzmart/tunashake">tunashake</a></td> 
+      <td>+5 agility</td>
+    </tr>
+    <tr>
+      <td>150 pz</td>
+      <td><a href="/pawzmart/tunashake">catnip tea</a></td>
+      <td>+5 confidence</td>
+    </tr>
+    <tr>
+      <td>400 pz</td>
+      <td><a href="/pawzmart/beyondmice">beyondmice burger</a></td>
+      <td>+5 strength</td>
+    </tr>
+  </tbody>
+</div>

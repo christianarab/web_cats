@@ -1,54 +1,62 @@
 <% require './helpers/helpers.rb' %>
+<% require './helpers/style.rb' %>
 
-<style>
-* {
-  background-color: #eaeae1;
-  margin-left: auto;
-  margin-right: auto;
-}
-div {
-  padding-top: 50px;
-  color: #558000;
-  text-align: center;
-  width: 50%;
-}
-</style>
-<div>
-  <h1>Competition Cats: Web Edition</h1>
-  <p> a very textual feline game written in ruby and html, alive thanks to sinatra!
-  <p> Have fun <%=session[:email]%><br>
-</div>
-<div>
-<% if Helpers::Profile.player_two?(session[:profile_2]) == nil  %>
-  <%= "There is no second player. Computer selected!" %>
-  <% session[:profile_2] = UserProfile::Player.computer %>
-  <%= "Second player is:" %><br>
-  <%= session[:profile_2].to_s %>
-  <% else %>
-  <%= "Second player is:" %><br>
-  <%= session[:profile_2] %>
-<%end%>
-</div>
-<div>
-<% if Helpers::Profile.has_cat?(session[:profile_1]) == nil  %>
-<%= "This player has no cat" %>
-<% else %>
-<%= "Your cat is:" %><br>
-<%= session[:profile_1].cat.to_s %>
-<%end%>
-</div>
-<div>
---"ﾐㅇ ༝ ㅇﾐ----------------------------------------------------------------------------<br>
-                              -"ﾐㅇ ༝ ㅇﾐ-<br>
-                              pawzmart! $$$<br>
-                                                     -"ﾐㅇ ༝ ㅇﾐ-<br>
-                     practice: paw fight             watch ad and earn free tokens<br>
-                     <a href="/cat">Select a Cat</a>        <br>
-                     <a href="/games/quiz">mini-game: CAT101 exam</a>         -1 token <br>
-                     mini-game: count mice           -1 token <br>
-                     play competition mode!          -3 tokens<br>
-         #{"ﾐㅇ ༝ ㅇﾐ"<br>
-                     logout      
+<%=STYLE%>
 
---------------------------"ﾐㅇ ༝ ㅇﾐ----------------------------------------------------<br>
+<div class="column">
+  <strong>Have fun <%=session[:email]%></strong>
+
+  <h2> Main menu </h2>
+    <a href="/pawzmart">pawzmart! $$</a><br>
+    <a href="/games/quiz">CAT101 exam ﾐㅇ ༝ ㅇﾐ+</a><br>
+    <a href="/games/competition">Competition Battle</a><br>
+    <h2> Meow, your cat is... </h2>
+    <% if Helpers::Profile.has_cat?(session[:profile_1]) == nil  %>
+      <%= "This player has no cat" %>
+      <%loadedcats = Cat.load%>
+      <h1> Select your feline friend! </h1>
+      <form method='POST' action='/catselected'>
+        <%loadedcats.each_with_index do |cat, idx|%>
+          <p><input type="radio" name="input" value='<%= idx %>'><%= idx+1 %> ^_^<%= cat.to_s %>
+        <%end%>
+        <input type='submit'>
+      </form>  
+    <% else %>
+      <%= session[:profile_1].cat.to_s %>
+    <%end%>
+    <h2> Player 2 is... </h2>
+      <% if Helpers::Profile.player_two?(session[:profile_2]) == nil  %>
+          <%= "There is no second player. Computer selected!" %>
+          <% session[:profile_2] = UserProfile::Player.computer %>
+          <%= session[:profile_2].to_s %>
+        <% else %>
+          <%= session[:profile_2] %>
+    <%end%>
+    <br>  <br>  <br>
+    <a href="/logout">Logout<a>
+    </div>
+</div>
+
+<div class="column2"> 
+  <h2 class='left'> Competition Cats</h2>
+  <h2>MeowwwWelcome!!!</h2><br>
+  <%= UserProfile::Player.greet %> <br>
+  Welcome to Competition Cats! A fun feline text-based terminal game written in Ruby. Create a cat, play against other cats and compete to win rewards!<br>
+  <h2 class='left'> What are cats!?</h2>
+  <p class='left'>Cats act as your companions in Competition Cats. Each cat uniquely have both strengths and weaknesses. Cats have can be small, medium or large in size. Each cat has a unique points of agility, strength and confidence. Compete against the computer or other unique cats in Competition Cats! By entering competitions and mini-games, the player is able to have a chance to collect pawz dollars to be spent in the PawzMart store. A player can upgrade their cat's traits, as well as change their cats name for future games!</p>
+  <h2>Games!</h2>
+  <p class='left'>  <strong>CAT101</strong> It is your final exam at University of Felines. You must make your mama cat proud by answering 10 multiple choice questions correctly - each question gives you more pawz.<p>
+  <strong>Competition Mode</strong>
+  Competitions are the focus of the game! Each round the players are prompted to either: attack, defend, or retreat (forfeit). Using a highly sophisticated  algorithm, a result outcome for each move is calculated based on the cats' traits and luck. For instance, if both cats decide to attack in a turn, the cat with the most strength at the given time of the move will over take the other. Each attack will inflict damage to the cat's energy level. After six rounds, the cat with the least energy looses the competition.
+<pre>_
+                   |\___/|                      \\
+                   )     (    |\_/|              ||
+                  =\     /=   )a a `,_.-""""-.  //
+                    )===(    =\Y_= /          \//
+                   /     \     `"`\       /    /
+                   |     |         |    \ |   /
+                  /       \         \   /- \  \
+                  \       /         || |  // /`
+        jgs_/\_/\_/\_   _/_/\_/\_/\_((_|\((_//\_/\_/\_/\_</pre>
+
 </div>

@@ -33,7 +33,7 @@ class Cat
     end
     cats
   end
-
+  
   # Starter agility determined by size of cat
   def starter_agility
     base = 50
@@ -70,6 +70,10 @@ class Cat
   # Competition luck component
   def move_luck
     @luck = rand(1..6)
+  end
+
+  def reset_energy
+    @energy = 100
   end
 
   def add_str

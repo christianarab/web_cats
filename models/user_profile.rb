@@ -50,7 +50,7 @@ module UserProfile
   end
 
   class Player
-    attr_accessor :user, :cat, :pawz, :tokens, :wins, :losses, :competition_wins
+    attr_accessor :user, :cat, :pawz, :tokens, :wins, :losses, :competition_wins, :score
     
     def initialize(user, pawz=400, tokens=5, wins=0, losses=0, competition_wins=0)
       @user = user
@@ -60,6 +60,7 @@ module UserProfile
       @losses = losses
       @competition_wins = competition_wins
       @cat = nil
+      @score = 0
     end
   
     # Instantiates computer profile.
@@ -93,10 +94,14 @@ module UserProfile
     def save
       File.open("./data/profiles/#{@user.email}", 'w') do |file|
         file.write("#{@user.email}, #{@pawz}, #{@tokens}, #{@wins}, #{@losses}, #{@competition_wins}\n")
+      end                
+    end
+
+    # Saves account cat
+    def save_cat
+      File.open("./data/profiles/#{user.email}_cat", 'w') do |file|
+        file.write("#{self.cat.name}, #{self.cat.size}, #{self.cat.energy}, #{self.cat.confidence}, #{self.cat.agility}, #{self.cat.strength}\n")
       end
-      # File.open("./data/#{player.user.email}_cat", 'w') do |file|
-      #   file.write("#{player.cat.name}, #{player.cat.size}, #{player.cat.energy}, #{player.cat.confidence}, #{player.cat.agility}, #{player.cat.strength}\n")
-      # end                     
     end
   
     def self.login(user, email)

@@ -1,10 +1,18 @@
-<h1>Competition Cats Log In</h1>
-<div>
+<% require './helpers/helpers.rb' %>
+<% require './helpers/style.rb' %>
+
+<%=STYLE%>
+
+<div class="center">
+  <h2>Competition Cats: Web Edition</h2>
+  <p> a very textual feline game written in ruby, html, and alive thanks to sinatra!
+  <h3><%= "ACCOUNT NOT FOUND TRY AGAIN OR SIGNUP!" if session[:email_error]%></h3>
   <form method='POST' action='/login'>
     <h2>Email</h2>
       <input name='email'><br>
     <h2>Password</h2>
       <input name='password'><br><br>
-      <input type='submit'>
+      <input type='submit'><br><br>
+      <a href='/signup'>Click to Sign Up</a>
   </form>
 </div>

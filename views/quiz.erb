@@ -1,3 +1,72 @@
-<% require './models/game.rb' %>
+<% require './helpers/style.rb' %>
 
-<% Game.quiz_run(session[:profile_1], session[:profile_2])%>
+<%=STYLE%>
+
+<div>
+  <h2>CAT101 EXAM</h2>
+  <h3> pass the exam for pawz and tokens!</h3><br>
+  <% if session[:quizresults] %>
+    <h2> <%= "You earned: #{session[:profile_1].pawz} pawz."%> </h2>
+    <% session[:quizresults] = nil %>
+  <% end %>
+  <form method="POST" action='/games/quiz/done'>
+    <p>Cats can sweat through their paws?<br>
+      <input type="radio" name="q1" value='True' %>True
+      <input type="radio" name="q1" value='False' %>False
+      <br><br><%= session[:quizresults][0] if session[:quizresults]  %>
+
+    <p>Toxoplasmosis is a parasitic disease that is transmittable through feline sexual reproduction<br>
+      <input type="radio" name="q2" value='True' %>True
+      <input type="radio" name="q2" value='False' %>False
+      <br><br><%= session[:quizresults][1] if session[:quizresults]  %>
+
+    <p>Fill in the blank: Denmark, 1995 -- the ___ Cat was born. The cat has been extensively researched, yet with no solid conclusion for it's unique trait.<br>
+      <input type="radio" name="q3" value='School' %>School
+      <input type="radio" name="q3" value='Shoaling' %>Shoaling
+      <input type="radio" name="q3" value='Clowder' %>Clowder
+      <input type="radio" name="q3" value='Walering' %>Shoaling
+      <br><br><%= session[:quizresults][2] if session[:quizresults]  %>
+
+    <p>How many bones do cats have?<br>
+      <input type="radio" name="q4" value='300' %>300
+      <input type="radio" name="q4" value='230' %>230
+      <input type="radio" name="q4" value='145' %>145
+      <input type="radio" name="q4" value='206' %>206
+      <br><br><%= session[:quizresults][3] if session[:quizresults]  %>
+
+    <p>What is the name of a group of kittens?<br>
+      <input type="radio" name="q5" value='Kindle' %>Kindle
+      <input type="radio" name="q5" value='Krowder' %>Krowder
+      <input type="radio" name="q5" value='Pawter' %>Pawter
+      <input type="radio" name="q5" value='Shoaling' %>Shoaling
+      <br><br><%= session[:quizresults][4] if session[:quizresults]  %>
+
+    <p>As the end of 2021, how old is the comic Garfield?<br>
+      <input type="radio" name="q6" value='29' %>29
+      <input type="radio" name="q6" value='35' %>35
+      <input type="radio" name="q6" value='43' %>43
+      <input type="radio" name="q6" value='31'%>31
+      <br><br><%= session[:quizresults][5] if session[:quizresults]  %>
+
+    <p>On average, how many kittens does a mother have in one litter?<br>
+      <input type="radio" name="q7" value='1-2' %>1-2
+      <input type="radio" name="q7" value='2-3' %>2-3
+      <input type="radio" name="q7" value='3-4' %>3-4
+      <input type="radio" name="q7" value='6'%>6
+      <br><br><%= session[:quizresults][6] if session[:quizresults]  %>
+    
+    <p>On average, how many whiskers does a cat have on ONE side of its face?<br>
+      <input type="radio" name="q8" value='8' %>8
+      <input type="radio" name="q8" value='9' %>9
+      <input type="radio" name="q8" value='14' %>14
+      <input type="radio" name="q8" value='12'%>12
+      <br><br><%= session[:quizresults][7] if session[:quizresults]  %>
+    
+    <p>Do indoor cats live longer than outdoor cats?<br>
+      <input type="radio" name="q9" value='True' %>True
+      <input type="radio" name="q9" value='False' %>False
+      <br><br><%= session[:quizresults][8] if session[:quizresults]  %>
+    <br><br>
+    <input type='submit'>
+  </form>
+</div>

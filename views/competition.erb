@@ -1,0 +1,94 @@
+<% require './models/competition.rb' %>
+<% require './helpers/style.rb' %>
+
+<%=STYLE%>
+
+<div class="center">
+  <%if session[:competitionresult]%>
+    <div>
+      <h2> Game results... </h2>
+        <%session[:competitionresult].each do |result|%>
+            <%if result == 'successful'%>
+                <br><%= "Your attack was successful!"%>
+                <%session[:profile_2].cat.energy -= 25%>
+              <%elsif 'defence'%>
+                <br><%= "You defended their attack!"%>
+              <%elsif 'rejected'%>
+                <br><%= "Their attack was succesful!"%>
+                <%session[:profile_1].cat.energy -= 25%>
+              <%else%>
+                <br><%="You both tied. You are both scaredy cats!"%>
+              <%end%>
+        <%end%>
+      <br><strong><%="#{session[:profile_1].cat.name} Energy: #{session[:profile_1].cat.energy}"%>
+     <%="#{session[:profile_2].cat.name} Energy: #{session[:profile_2].cat.energy}"%></strong><br>
+      <%if session[:profile_1].cat.energy > session[:profile_2].cat.energy %>
+        <%session[:profile_1].competition_wins += 1%>
+      <%else%>
+        <%session[:profile_2].competition_wins += 1%>
+      <%end%>
+      <strong><%="Player 1 Competition Wins: #{session[:profile_1].competition_wins}"%><br>
+      <%="Player 2 Competition Wins: #{session[:profile_2].competition_wins}"%><br></strong>
+      <%session[:profile_1].cat.reset_energy%>
+      <%session[:profile_2].cat.reset_energy%>
+      <%session[:competitionresult] = nil%>
+    </div>
+  <%end%>
+  <h2> CAT FIGHT!!!! The winner is the one with the most energy left after 5 moves. </h2>
+
+  <form method='POST' action='/comp-move'>
+        <p> Move 1
+      <input type="radio" name="move1" value='attack' %>attack
+      <input type="radio" name="move1" value='defence' %>defence
+      <input type="radio" name="move1" value='forfeit' %>forfeit
+        <p> Move 2
+      <input type="radio" name="move2" value='attack' %>attack
+      <input type="radio" name="move2" value='defence' %>defence
+      <input type="radio" name="move2" value='forfeit' %>forfeit
+        <p> Move 3
+      <input type="radio" name="move3" value='attack' %>attack
+      <input type="radio" name="move3" value='defence' %>defence
+      <input type="radio" name="move3" value='forfeit' %>forfeit
+        <p> Move 4
+      <input type="radio" name="move4" value='attack' %>attack
+      <input type="radio" name="move4" value='defence' %>defence
+      <input type="radio" name="move4" value='forfeit' %>forfeit
+        <p> Move 5
+      <input type="radio" name="move5" value='attack' %>attack
+      <input type="radio" name="move5" value='defence' %>defence
+      <input type="radio" name="move5" value='forfeit' %>forfeit
+      <br><br><input type='submit'>
+  </form>
+</div>
+
+<% player_1 = session[:profile_1] %>
+<% player_2 = session[:profile_1] %>
+
+<% def self.competition_mode(player_1, player_2)
+  if player_1.tokens < 3 %>
+    <%="#{player_1.user.email}: You need to earn more tokens!"%>
+  <%else%>
+    <%player_1.tokens -= 3
+    player_2.tokens -= 3
+    @p1_score = 0
+    @p2_score = 0
+    counter = 0
+    p1_start_strength = player_1.cat.strength 
+    p2_start_strength = player_2.cat.strength
+    player_1.cat.strength = player_1.cat.strength * player_1.cat.move_luck 
+    player_2.cat.strength = player_2.cat.strength * player_2.cat.move_luck%>
+    <%="The best out of 6 rounds wins the competition!"%>
+    <%while counter < 6 do%>
+      <%="#{player_1.cat.name}'s energy is at #{player_1.cat.energy}"%>
+      <%="#{player_2.cat.name}'s energy is at #{player_2.cat.energy}"%>
+      <%if player_1.cat.energy < player_2.cat.energy
+        @p2_score += 1
+      else player_2.cat.energy < player_1.cat.energy
+        @p1_score += 1
+      end
+      counter += 1%>
+     <%end%>
+  <%end%>
+<%end%>
+
+      

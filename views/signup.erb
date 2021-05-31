@@ -1,10 +1,15 @@
-<h1>Competition Cats Sign Up</h1>
+<% require './helpers/helpers.rb' %>
+<% require './helpers/style.rb' %>
+
+<%=STYLE%>
+
 <div>
-  <form method='POST' action='/signup-filled'>
-    <h2>Email</h2>
-      <input name='email'><br>
-    <h2>Password</h2>
-      <input name='password'><br><br>
-      <input type='submit'>
-  </form>
+  <h2>Competition Cats Sign Up</h2>
+    <form method='POST' action='/signup-filled'>
+      <h2>Email</h2>
+        <input name='email'><br>
+      <h2>Password</h2>
+        <input name='password'><br><br>
+        <input type='submit'>
+    </form>
 </div>

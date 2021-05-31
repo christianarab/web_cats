@@ -26,8 +26,16 @@ class Helpers
     def self.is_logged_in?(session)
       !!session[:email]
     end
-  end
 
+    def self.find_by(email)
+     if File.exist?("./data/profiles/#{email}")
+      true
+     else
+      false
+     end
+    end
+  end
+  
   class Score
     def self.winner_is?(p1=false, p2=false, player_1, player_2)
       if p1 == true
