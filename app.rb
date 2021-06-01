@@ -3,6 +3,7 @@ require './lib/encryption.rb'
 require './models/user_profile.rb'
 require './models/cat.rb'
 require './models/competition.rb'
+require './helpers/helpers.rb'
 
 class App < Sinatra::Base
 
@@ -103,36 +104,21 @@ class App < Sinatra::Base
   end
 
   get '/pawzmart/tunashake' do
-    if session[:profile_1].pawz < 300
-      session[:pawzerr] = "You do not have enough pawz to buy"
-      redirect '/pawzmart'
-    else
-      session[:profile_1].pawz -= 300
-      session[:profile_1].cat.add_agility
-      redirect '/pawzmart'
-    end
+    item = "tunashake"
+    Helpers::Pawz.purchase(item, session[:profile_1])
+    redirect '/pawzmart'
   end
 
   get '/pawzmart/catnip' do
-    if session[:profile_1].pawz < 150
-      session[:pawzerr] = "You do not have enough pawz to buy"
-      redirect '/pawzmart'
-    else
-      session[:profile_1].pawz -= 150
-      session[:profile_1].cat.add_confidence
-      redirect '/pawzmart'
-    end
+    item = "catnip"
+    Helpers::Pawz.purchase(item, session[:profile_1])
+    redirect '/pawzmart'
   end
 
   get '/pawzmart/beyondmice' do
-    if session[:profile_1].pawz < 400
-      session[:pawzerr] = "You do not have enough pawz to buy"
-      redirect '/pawzmart'
-    else
-      session[:profile_1].pawz -= 400
-      session[:profile_1].cat.add_str
-      redirect '/pawzmart'
-    end
+    item = "beyondmice"
+    Helpers::Pawz.purchase(item, session[:profile_1])
+    redirect '/pawzmart'
   end
 
   # signup submission

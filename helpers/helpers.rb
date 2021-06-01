@@ -35,6 +35,30 @@ class Helpers
      end
     end
   end
+
+  class Pawz
+    
+    def self.purchase(item, session)
+      case item
+      when 'tunashake'
+        value = 300
+        power = "add_agility"
+      when 'catnip'
+        value = 150
+        power = "add_confidence"
+      when 'beyondmice'
+        value = 400
+        power = "add_str"
+      end     
+      if session.pawz < value
+        session[:pawzerr] = "You do not have enough pawz to buy"
+        redirect '/pawzmart'
+      else
+        session.pawz -= value
+        session.cat.send(power)
+      end
+    end
+  end
   
   class Score
     def self.winner_is?(p1=false, p2=false, player_1, player_2)
